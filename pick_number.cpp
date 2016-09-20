@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
     srand(time(NULL));
     map<int, int> result_pr_count;
     for (int round = 0; round < round_count; round++) {
-        int picked_num = -1;
+        int picked_num;
         vector<int> nums;
         int i;
         for (i = 0; i < sample_count; i++) {
@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
             nums.insert(lower_bound(nums.begin(), nums.end(), num), num);
 
             int pr = calc_pr(nums, num);
-            if (picked_num == -1 && i >= pick_wait && pr >= pick_pr) {
+            if (i >= pick_wait && pr >= pick_pr) {
                 picked_num = num;
                 break;
             }
@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
         sort(nums.begin(), nums.end());
         result_pr_count[calc_pr(nums, picked_num)]++;
     }
-    int sum;
+    int sum = 0;
     for (int i = 0; i < 101; i++) {
         sum += result_pr_count[i]*i;
     }
